@@ -68,31 +68,35 @@
       filter: blur(20px);
     }
 
-    /* dot grid overlay — hero only */
+    /* dot grid — full page */
     .site-bg::after {
       pointer-events: none;
       content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 100dvh;
+      position: fixed;
+      inset: 0;
       z-index: 0;
-      background-image: radial-gradient(circle, rgba(226,232,240,0.32) 1px, transparent 1.45px);
+      background-image: radial-gradient(circle, rgba(226,232,240,0.30) 1px, transparent 1.45px);
       background-size: 18px 18px;
-      mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
     }
 
     /* everything above bg */
     nav, section, .split-div, footer { position: relative; z-index: 1; }
 
-    /* section backgrounds */
-    #pain    { background: var(--bg2); }
-    #how     { background: var(--bg3); }
-    #demo    { background: var(--bg2); }
-    #stats   { background: var(--bg3); }
-    #offers  { background: var(--bg2); }
-    #faq     { background: var(--bg3); }
-    #cta     { background: var(--bg2); }
-    footer   { background: var(--bg3); }
+    /* content blocks with rounded bg on top of dots */
+    section .wrap {
+      background: rgba(11,15,23,0.90);
+      border: 1px solid var(--bd);
+      border-radius: 16px;
+      padding: 48px;
+      backdrop-filter: blur(4px);
+    }
+    footer .wrap {
+      background: rgba(11,15,23,0.90);
+      border: 1px solid var(--bd);
+      border-radius: 16px;
+      padding: 40px;
+      backdrop-filter: blur(4px);
+    }
 
     /* ── NAV ── */
     nav {
@@ -126,7 +130,8 @@
     }
 
     /* ── LAYOUT ── */
-    section { padding: 96px 40px; }
+    section { padding: 40px; }
+    footer  { padding: 40px; }
     .wrap { max-width: 1200px; margin: 0 auto; }
 
     .eyebrow-lbl {
@@ -443,10 +448,7 @@
     .desc-arrow { font-size: 22px; }
 
     /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--bd);
-      padding: 40px 40px; text-align: center;
-    }
+    footer { text-align: center; }
     .footer-logo {
       display: inline-flex; align-items: center; gap: 12px;
       font-weight: 700; color: var(--tx); margin-bottom: 12px;
@@ -468,11 +470,13 @@
     }
     @media (max-width: 768px) {
       .nav-in { padding: 0 20px; height: 64px; }
-      section { padding: 72px 20px; }
+      section { padding: 20px; }
+      footer  { padding: 20px; }
       .split-div { padding: 40px 20px; }
+      section .wrap { padding: 28px; border-radius: 12px; }
+      footer .wrap  { padding: 28px; border-radius: 12px; }
       #hero h1 { font-size: 34px; }
       .steps { grid-template-columns: 1fr; }
-      footer { padding: 32px 20px; }
     }
     @media (max-width: 480px) {
       .stats { grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -810,12 +814,14 @@
   </section>
 
   <footer>
-    <div class="footer-logo">
-      <div class="logo-badge">YA</div>
-      Yasprosil AI
+    <div class="wrap">
+      <div class="footer-logo">
+        <div class="logo-badge">YA</div>
+        Yasprosil AI
+      </div>
+      <p class="foot-sub">Telegram-боты для бизнеса · Разработка под ключ · Обучение</p>
+      <p class="foot-copy">© 2026 Yasprosil AI. Собрано с AI и вайбкодингом.</p>
     </div>
-    <p class="foot-sub">Telegram-боты для бизнеса · Разработка под ключ · Обучение</p>
-    <p class="foot-copy">© 2026 Yasprosil AI. Собрано с AI и вайбкодингом.</p>
   </footer>
 
 </div>
