@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StrigaPrint Bot — Telegram-бот для приёма заказов</title>
-  <meta name="description" content="Telegram-бот для автоматизации приёма заказов на фотокартины на дереве. Python, aiogram 3, PostgreSQL.">
+  <title>Telegram-боты для бизнеса — автоматизация заказов</title>
+  <meta name="description" content="Telegram-бот берёт на себя приём заказов. Готовый бот, разработка под ваш бизнес или обучение в закрытом сообществе.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,24 +12,22 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg:     #0c0805;
-      --s1:     #161009;
-      --s2:     #201610;
-      --s3:     #2c1e12;
-      --bd:     #3d2c1a;
-      --bd2:    #5a4028;
-      --gold:   #c89638;
-      --gold2:  #e8b84c;
-      --gdim:   rgba(200,150,56,.12);
-      --gring:  rgba(200,150,56,.28);
-      --tx:     #f0e6d6;
-      --tx2:    #a88060;
-      --tx3:    #604530;
-      --green:  #5da870;
-      --blue:   #4a8ec0;
-      --red:    #c05858;
-      --r:      10px;
-      --rl:     16px;
+      --bg:    #0c0805;
+      --s1:    #161009;
+      --s2:    #201610;
+      --s3:    #2c1e12;
+      --bd:    #3d2c1a;
+      --bd2:   #5a4028;
+      --gold:  #c89638;
+      --gold2: #e8b84c;
+      --gdim:  rgba(200,150,56,.12);
+      --grng:  rgba(200,150,56,.28);
+      --tx:    #f0e6d6;
+      --tx2:   #a88060;
+      --tx3:   #604530;
+      --green: #5da870;
+      --r:     10px;
+      --rl:    16px;
     }
 
     html { scroll-behavior: smooth; }
@@ -43,32 +41,31 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    a { color: var(--gold); text-decoration: none; }
+
     /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(12,8,5,.88);
+      background: rgba(12,8,5,.9);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--bd);
     }
-    .nav-inner {
+    .nav-in {
       max-width: 1100px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 40px; height: 56px;
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: 8px;
-      font-weight: 700; font-size: 15px; color: var(--tx);
-      text-decoration: none; letter-spacing: -.01em;
+    .logo { font-weight: 800; font-size: 15px; letter-spacing: -.01em; }
+    .logo span { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: #1a0e00;
+      padding: 7px 18px; border-radius: 99px;
+      font-size: 13px; font-weight: 700;
+      transition: background .18s;
     }
-    .nav-logo .accent { color: var(--gold); }
-    .nav-links { display: flex; gap: 28px; }
-    .nav-links a {
-      font-size: 13px; color: var(--tx2); text-decoration: none;
-      transition: color .18s;
-    }
-    .nav-links a:hover { color: var(--gold2); }
+    .nav-cta:hover { background: var(--gold2); color: #1a0e00; }
 
-    /* ── LAYOUT ── */
+    /* ── SECTIONS ── */
     section { padding: 88px 40px; }
     .wrap { max-width: 1100px; margin: 0 auto; }
     hr.div { border: none; border-top: 1px solid var(--bd); }
@@ -78,208 +75,256 @@
       letter-spacing: .12em; text-transform: uppercase;
       color: var(--gold); margin-bottom: 12px; display: block;
     }
-
     h2 {
       font-size: clamp(28px, 3.5vw, 42px);
       font-weight: 800; line-height: 1.15; letter-spacing: -.02em;
     }
-    h3 { font-size: 18px; font-weight: 700; }
-    h4 { font-size: 14px; font-weight: 600; }
-
-    .gold { color: var(--gold); }
-    .dim  { color: var(--tx2); }
+    .sub { color: var(--tx2); margin-top: 14px; max-width: 580px; }
 
     /* ── HERO ── */
     #hero {
-      min-height: 92vh;
+      min-height: 90vh;
       display: flex; flex-direction: column; justify-content: center;
-      padding-top: 96px; padding-bottom: 80px;
+      padding-top: 100px; padding-bottom: 80px;
     }
-    #hero .wrap { max-width: 820px; }
-    .hero-eyebrow {
+    #hero .wrap { max-width: 760px; }
+    .eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--gdim); border: 1px solid var(--gring);
+      background: var(--gdim); border: 1px solid var(--grng);
       border-radius: 99px; padding: 5px 14px;
       font-size: 12px; font-weight: 600; color: var(--gold2);
-      margin-bottom: 28px; letter-spacing: .04em;
+      margin-bottom: 28px;
     }
     #hero h1 {
-      font-size: clamp(38px, 6vw, 72px);
+      font-size: clamp(38px, 6vw, 68px);
       font-weight: 800; line-height: 1.08;
-      letter-spacing: -.03em;
-      margin-bottom: 22px;
+      letter-spacing: -.03em; margin-bottom: 22px;
     }
-    #hero h1 em {
-      font-style: normal;
-      color: var(--gold);
+    #hero h1 em { font-style: normal; color: var(--gold); }
+    #hero p {
+      font-size: 18px; color: var(--tx2);
+      max-width: 540px; margin-bottom: 40px; line-height: 1.6;
     }
-    #hero .sub {
-      font-size: 17px; color: var(--tx2);
-      max-width: 540px; margin-bottom: 44px; line-height: 1.6;
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: #1a0e00;
+      padding: 13px 28px; border-radius: 99px;
+      font-size: 15px; font-weight: 700;
+      transition: background .18s, transform .15s;
     }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); color: #1a0e00; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      border: 1px solid var(--bd2); color: var(--tx2);
+      padding: 13px 28px; border-radius: 99px;
+      font-size: 15px; font-weight: 500;
+      transition: border-color .18s, color .18s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
-    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 56px; }
-    .badge {
-      padding: 5px 13px; border-radius: 99px;
-      font-size: 12px; font-weight: 500;
-      background: var(--s2); border: 1px solid var(--bd); color: var(--tx2);
+    /* ── PAIN SECTION ── */
+    .pain-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px; margin-top: 36px;
     }
-    .badge.hi {
-      background: var(--gdim); border-color: var(--gring); color: var(--gold);
+    .pain-card {
+      background: var(--s1); border: 1px solid var(--bd);
+      border-radius: var(--rl); padding: 22px;
+    }
+    .pain-icon { font-size: 22px; margin-bottom: 12px; display: block; }
+    .pain-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .pain-card p  { font-size: 13px; color: var(--tx2); }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0; margin-top: 40px;
+      border: 1px solid var(--bd); border-radius: var(--rl);
+      overflow: hidden;
+    }
+    .hw-step {
+      padding: 28px 24px;
+      border-right: 1px solid var(--bd);
+    }
+    .hw-step:last-child { border-right: none; }
+    .hw-n {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--gdim); border: 1px solid var(--grng);
+      color: var(--gold); font-weight: 700; font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .hw-step h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .hw-step p  { font-size: 12px; color: var(--tx2); line-height: 1.55; }
+
+    /* ── OFFERS ── */
+    #offers { background: var(--s1); }
+    .offers-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 40px;
+    }
+    .offer {
+      background: var(--bg); border: 1px solid var(--bd);
+      border-radius: var(--rl); padding: 32px;
+      display: flex; flex-direction: column;
+      transition: border-color .2s, transform .2s;
+    }
+    .offer:hover { border-color: var(--bd2); transform: translateY(-3px); }
+    .offer.featured {
+      background: var(--s2);
+      border-color: var(--grng);
+      position: relative;
+    }
+    .offer-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: #1a0e00;
+      padding: 3px 16px; border-radius: 99px;
+      font-size: 11px; font-weight: 700; white-space: nowrap;
+    }
+    .offer-icon { font-size: 32px; margin-bottom: 18px; }
+    .offer h3 {
+      font-size: 18px; font-weight: 700; margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .offer-desc {
+      font-size: 13px; color: var(--tx2);
+      line-height: 1.6; flex: 1; margin-bottom: 24px;
+    }
+    .offer-list {
+      list-style: none; margin-bottom: 28px;
+    }
+    .offer-list li {
+      font-size: 13px; color: var(--tx2);
+      padding: 5px 0; border-bottom: 1px solid var(--bd);
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .offer-list li:last-child { border-bottom: none; }
+    .offer-list li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
+    .offer-btn {
+      display: block; text-align: center;
+      padding: 12px 20px; border-radius: 99px;
+      font-size: 14px; font-weight: 700;
+      transition: background .18s, color .18s, transform .15s;
+    }
+    .offer-btn.primary {
+      background: var(--gold); color: #1a0e00;
+    }
+    .offer-btn.primary:hover { background: var(--gold2); transform: translateY(-1px); }
+    .offer-btn.outline {
+      border: 1px solid var(--bd2); color: var(--tx2);
+    }
+    .offer-btn.outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── DEMO ── */
+    .demo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: start; margin-top: 36px;
+    }
+    .demo-steps { display: flex; flex-direction: column; gap: 0; }
+    .d-step {
+      display: flex; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--bd);
+    }
+    .d-step:last-child { border-bottom: none; }
+    .d-n {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--gdim); border: 1px solid var(--grng);
+      color: var(--gold); font-weight: 700; font-size: 11px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .d-step h4 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .d-step p  { font-size: 12px; color: var(--tx2); }
+
+    .admin-panel {
+      background: var(--s1); border: 1px solid var(--bd);
+      border-radius: var(--rl); padding: 24px;
+    }
+    .admin-panel h4 { font-size: 13px; font-weight: 600; margin-bottom: 16px; color: var(--tx2); }
+    .tg-kb {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    }
+    .tg-btn {
+      background: var(--s2); border: 1px solid var(--bd);
+      border-radius: 8px; padding: 9px 12px;
+      font-size: 12px; color: var(--tx2); text-align: center;
+    }
+    .tg-btn.wide   { grid-column: 1/-1; }
+    .tg-btn.action { color: var(--gold2); border-color: var(--grng); }
+    .tg-btn.danger { color: #c05858; border-color: rgba(192,88,88,.2); }
+    .panel-note {
+      font-size: 12px; color: var(--tx3); margin-top: 14px; line-height: 1.55;
     }
 
     /* ── STATS ── */
     .stats {
       display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+      margin-top: 40px;
     }
     .stat {
       background: var(--s1); border: 1px solid var(--bd);
-      border-radius: var(--rl); padding: 22px 20px; text-align: center;
+      border-radius: var(--rl); padding: 24px 20px; text-align: center;
     }
-    .stat-n { font-size: 38px; font-weight: 800; color: var(--gold2); line-height: 1; }
+    .stat-n { font-size: 36px; font-weight: 800; color: var(--gold2); line-height: 1; }
     .stat-l { font-size: 12px; color: var(--tx2); margin-top: 6px; }
 
-    /* ── TWO COL ── */
-    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-
-    /* ── STEPS ── */
-    .steps { margin-top: 36px; }
-    .step {
-      display: flex; gap: 18px;
-      padding: 18px 0; border-bottom: 1px solid var(--bd);
-    }
-    .step:last-child { border-bottom: none; }
-    .step-n {
-      flex-shrink: 0;
-      width: 30px; height: 30px; border-radius: 50%;
-      background: var(--gdim); border: 1px solid var(--gring);
-      color: var(--gold); font-weight: 700; font-size: 12px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .step-title { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
-    .step-desc  { font-size: 13px; color: var(--tx2); }
-
-    /* ── TG KEYBOARD ── */
-    .tg-kb {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-      max-width: 380px; margin-top: 20px;
-    }
-    .tg-btn {
-      background: var(--s2); border: 1px solid var(--bd);
-      border-radius: 8px; padding: 10px 14px;
-      font-size: 13px; color: var(--tx2); text-align: center;
-    }
-    .tg-btn.wide   { grid-column: 1 / -1; }
-    .tg-btn.action { color: var(--gold2);  border-color: var(--gring); }
-    .tg-btn.danger { color: var(--red);    border-color: rgba(192,88,88,.25); }
-
-    /* ── STATUS FLOW ── */
-    .sf {
-      display: flex; align-items: center; flex-wrap: wrap;
-      gap: 6px; margin-top: 20px;
-    }
-    .sf-node {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      background: var(--s2); border: 1px solid var(--bd);
-      border-radius: var(--r); padding: 10px 14px; min-width: 72px;
-      transition: border-color .2s;
-    }
-    .sf-node.y { border-color: var(--gring); }
-    .sf-node.g { border-color: rgba(93,168,112,.35); }
-    .sf-em { font-size: 18px; }
-    .sf-lbl { font-size: 10px; color: var(--tx2); font-weight: 500; white-space: nowrap; }
-    .sf-arr { color: var(--tx3); font-size: 13px; flex-shrink: 0; }
-
-    /* ── FEATURE CARDS ── */
-    .feat-grid {
-      display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 14px; margin-top: 36px;
-    }
-    .feat {
+    /* ── FAQ ── */
+    .faq { display: flex; flex-direction: column; gap: 2px; margin-top: 36px; }
+    .faq-item {
       background: var(--s1); border: 1px solid var(--bd);
-      border-radius: var(--rl); padding: 26px;
-      transition: border-color .2s, transform .2s;
+      border-radius: var(--r); overflow: hidden;
     }
-    .feat:hover { border-color: var(--bd2); transform: translateY(-2px); }
-    .feat-ic { font-size: 26px; margin-bottom: 14px; display: block; }
-    .feat h4 { margin-bottom: 8px; }
-    .feat p  { font-size: 13px; color: var(--tx2); }
+    .faq-q {
+      padding: 18px 22px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      user-select: none;
+    }
+    .faq-q .arr { color: var(--tx3); font-size: 18px; transition: transform .2s; }
+    .faq-item.open .arr { transform: rotate(45deg); }
+    .faq-a {
+      padding: 0 22px; max-height: 0; overflow: hidden;
+      font-size: 13px; color: var(--tx2); line-height: 1.6;
+      transition: max-height .3s ease, padding .3s ease;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 22px 18px; }
 
-    /* ── TECH ── */
-    .tech { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-    .tech-pill {
-      display: flex; align-items: center; gap: 9px;
-      background: var(--s1); border: 1px solid var(--bd);
-      border-radius: var(--r); padding: 10px 16px;
-      font-size: 13px; font-weight: 500;
-    }
-    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-    /* ── DB CARDS ── */
-    .db-grid {
-      display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 12px; margin-top: 28px;
-    }
-    .db-card {
-      background: var(--s1); border: 1px solid var(--bd);
-      border-radius: var(--rl); padding: 22px;
-    }
-    .db-card h4 {
-      font-family: 'SFMono-Regular', Consolas, monospace;
-      font-size: 14px; color: var(--gold); margin-bottom: 10px;
-    }
-    .db-card p { font-size: 12px; color: var(--tx2); line-height: 1.55; }
-
-    /* ── CODE ── */
-    .code {
-      background: var(--s1); border: 1px solid var(--bd);
-      border-radius: var(--rl); padding: 26px;
-      font-family: 'SFMono-Regular', Consolas, 'Courier New', monospace;
-      font-size: 13px; line-height: 1.75;
-      overflow-x: auto; margin-top: 28px;
-      white-space: pre;
-    }
-    .cm { color: var(--tx3); }
-    .ck { color: var(--blue); }
-    .cv { color: var(--gold); }
-    .cs { color: var(--green); }
-
-    /* ── "REPLACES" LIST ── */
-    .minus-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-    .minus {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--s1); border: 1px solid var(--bd);
-      border-radius: var(--r); padding: 12px 16px;
-      font-size: 13px; color: var(--tx2);
-    }
-    .minus .x { color: var(--red); font-size: 14px; flex-shrink: 0; }
-
-    /* ── SECTION INTRO TEXT ── */
-    .intro { color: var(--tx2); margin-top: 14px; max-width: 580px; }
+    /* ── CTA BOTTOM ── */
+    #cta { text-align: center; }
+    #cta h2 { max-width: 560px; margin: 0 auto 16px; }
+    #cta p { color: var(--tx2); margin-bottom: 36px; }
+    #cta .btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
 
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--bd);
-      padding: 36px 40px; text-align: center;
+      padding: 32px 40px; text-align: center;
     }
-    footer p { font-size: 13px; color: var(--tx3); line-height: 1.7; }
+    footer p { font-size: 13px; color: var(--tx3); line-height: 1.8; }
     footer strong { color: var(--tx2); font-weight: 500; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 780px) {
-      nav { padding: 0; }
-      .nav-inner { padding: 0 20px; }
-      .nav-links { display: none; }
-      section { padding: 64px 20px; }
-      .two  { grid-template-columns: 1fr; gap: 36px; }
-      .stats { grid-template-columns: 1fr 1fr; }
-      footer { padding: 28px 20px; }
+    @media (max-width: 900px) {
+      .offers-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+      .offer.featured { margin-top: 20px; }
+      .demo-grid { grid-template-columns: 1fr; }
     }
-
-    @media (max-width: 480px) {
+    @media (max-width: 780px) {
+      .nav-in { padding: 0 20px; }
+      section { padding: 64px 20px; }
       #hero h1 { font-size: 36px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .hw-step { border-right: none; border-bottom: 1px solid var(--bd); }
+      .hw-step:last-child { border-bottom: none; }
+      footer { padding: 24px 20px; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-ghost { justify-content: center; }
       .stats { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .stat-n { font-size: 30px; }
+      .stat-n { font-size: 28px; }
     }
   </style>
 </head>
@@ -287,53 +332,52 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-inner">
-      <a href="#hero" class="nav-logo">🌿 Striga<span class="accent">Print</span> Bot</a>
-      <div class="nav-links">
-        <a href="#about">О проекте</a>
-        <a href="#client">Клиент</a>
-        <a href="#admin">Администратор</a>
-        <a href="#features">Возможности</a>
-        <a href="#tech">Стек</a>
-        <a href="#deploy">Деплой</a>
-      </div>
+    <div class="nav-in">
+      <div class="logo">🌿 Striga<span>Print</span></div>
+      <a href="https://t.me/YOUR_USERNAME" class="nav-cta">Написать в Telegram</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
     <div class="wrap">
-      <div class="hero-eyebrow">✦ Telegram Bot</div>
-      <h1>Автоматизация заказов<br>на <em>фотокартины</em></h1>
-      <p class="sub">Бот заменяет ручную переписку — клиент оформляет заказ за 2 минуты, администратор управляет им через группу с кнопками.</p>
-
-      <div class="badges">
-        <span class="badge hi">Python 3.11</span>
-        <span class="badge hi">aiogram 3</span>
-        <span class="badge hi">PostgreSQL</span>
-        <span class="badge">Neon Cloud</span>
-        <span class="badge">asyncpg</span>
-        <span class="badge">Docker</span>
-        <span class="badge">aiohttp</span>
-        <span class="badge">JustRunMy.App</span>
+      <div class="eyebrow">✦ Telegram-боты для бизнеса</div>
+      <h1>Бот принимает заказы,<br>пока вы <em>работаете</em></h1>
+      <p>Клиент проходит опрос, видит цену и отправляет заявку — без вашего участия. Вы получаете готовую карточку и ведёте заказ кнопками.</p>
+      <div class="hero-btns">
+        <a href="#offers" class="btn-primary">Посмотреть варианты →</a>
+        <a href="#how" class="btn-ghost">Как это работает</a>
       </div>
+    </div>
+  </section>
 
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-n">8</div>
-          <div class="stat-l">форматов картин</div>
+  <hr class="div">
+
+  <!-- PAIN -->
+  <section id="pain">
+    <div class="wrap">
+      <span class="lbl">Проблема</span>
+      <h2>Знакомо?</h2>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <span class="pain-icon">💬</span>
+          <h4>Переписка отнимает время</h4>
+          <p>Каждый клиент — это вопросы, уточнения, расчёт вручную. Вы тратите часы на то, что можно автоматизировать.</p>
         </div>
-        <div class="stat">
-          <div class="stat-n">7</div>
-          <div class="stat-l">кнопок администратора</div>
+        <div class="pain-card">
+          <span class="pain-icon">📉</span>
+          <h4>Заказы теряются</h4>
+          <p>Статус в голове или в блокноте. Кто оплатил, кто нет, чей заказ готов — легко запутаться.</p>
         </div>
-        <div class="stat">
-          <div class="stat-n">4</div>
-          <div class="stat-l">таблицы в базе</div>
+        <div class="pain-card">
+          <span class="pain-icon">🧮</span>
+          <h4>Ручной расчёт = ошибки</h4>
+          <p>Считаете стоимость в уме или в таблице. Ошиблись — либо работаете в минус, либо клиент недоволен.</p>
         </div>
-        <div class="stat">
-          <div class="stat-n">~40с</div>
-          <div class="stat-l">цикл деплоя</div>
+        <div class="pain-card">
+          <span class="pain-icon">📋</span>
+          <h4>Нет порядка в заказах</h4>
+          <p>Непонятно что на каком этапе. Клиент пишет «как мой заказ?» — и вы снова лезете в переписку.</p>
         </div>
       </div>
     </div>
@@ -341,93 +385,33 @@
 
   <hr class="div">
 
-  <!-- ABOUT -->
-  <section id="about">
+  <!-- HOW IT WORKS -->
+  <section id="how">
     <div class="wrap">
-      <div class="two">
-        <div>
-          <span class="lbl">О проекте</span>
-          <h2>Что это такое</h2>
-          <p class="intro">StrigaPrint — мастерская фотокартин на дереве. Весь процесс от выбора размера до передачи готовой работы автоматизирован через Telegram.</p>
-          <p class="intro" style="margin-top:12px;">Клиент проходит опрос и сразу видит итоговую стоимость. Администратор ведёт заказ через кнопки прямо в группе — без CRM, без переключений, без потерянных сообщений.</p>
-        </div>
-        <div>
-          <span class="lbl">Что заменяет</span>
-          <div class="minus-list">
-            <div class="minus"><span class="x">✗</span> Ручную переписку в личке</div>
-            <div class="minus"><span class="x">✗</span> Ручной расчёт стоимости</div>
-            <div class="minus"><span class="x">✗</span> Забытые заказы и потерю статусов</div>
-            <div class="minus"><span class="x">✗</span> Изменение прайса через код и деплой</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="div">
-
-  <!-- CLIENT -->
-  <section id="client">
-    <div class="wrap">
-      <span class="lbl">Путь клиента</span>
-      <h2>8 шагов до готового заказа</h2>
+      <span class="lbl">Решение</span>
+      <h2>Как работает бот</h2>
+      <p class="sub">Клиент сам проходит все шаги. Вы получаете готовую заявку и управляете ею кнопками.</p>
 
       <div class="steps">
-        <div class="step">
-          <div class="step-n">1</div>
-          <div>
-            <div class="step-title">Старт</div>
-            <div class="step-desc">Клиент пишет /start — получает видео-приветствие и прайс с выравниванием по столбцам. Цены динамические, из базы данных.</div>
-          </div>
+        <div class="hw-step">
+          <div class="hw-n">1</div>
+          <h4>Клиент пишет /start</h4>
+          <p>Получает приветствие, прайс и кнопку «Рассчитать стоимость».</p>
         </div>
-        <div class="step">
-          <div class="step-n">2</div>
-          <div>
-            <div class="step-title">Выбор размера</div>
-            <div class="step-desc">8 вариантов от XS 25×30 до XL 75×94. Каждый размер — отдельная кнопка с кодом и ценой.</div>
-          </div>
+        <div class="hw-step">
+          <div class="hw-n">2</div>
+          <h4>Проходит опрос</h4>
+          <p>Выбирает размер, опции, отправляет фото, указывает доставку.</p>
         </div>
-        <div class="step">
-          <div class="step-n">3</div>
-          <div>
-            <div class="step-title">Дополнительный дизайн</div>
-            <div class="step-desc">Нужно ли объединить несколько фото в одно — да или нет. Добавляет фиксированную сумму к итогу.</div>
-          </div>
+        <div class="hw-step">
+          <div class="hw-n">3</div>
+          <h4>Видит итоговую цену</h4>
+          <p>Бот сам рассчитывает стоимость и показывает полную разбивку.</p>
         </div>
-        <div class="step">
-          <div class="step-n">4</div>
-          <div>
-            <div class="step-title">Фото файлом</div>
-            <div class="step-desc">Клиент отправляет фото как файл, а не как изображение. Бот ждёт именно документ — для сохранения качества без сжатия Telegram.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-n">5</div>
-          <div>
-            <div class="step-title">Упаковка</div>
-            <div class="step-desc">Три варианта: без упаковки, бежевый крафт или чёрный крафт. Цена упаковки добавляется к итогу.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-n">6</div>
-          <div>
-            <div class="step-title">Срок</div>
-            <div class="step-desc">Клиент вводит дату, к которой нужна картина. Свободный ввод текстом.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-n">7</div>
-          <div>
-            <div class="step-title">Доставка</div>
-            <div class="step-desc">ЕвроПочта (клиент вводит адрес) или самовывоз из точки (выбор из кнопок). Цена зависит от варианта.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-n">8</div>
-          <div>
-            <div class="step-title">Подтверждение</div>
-            <div class="step-desc">Итоговая карточка с полной разбивкой цены. Кнопки: «Отправить заявку», «Изменить доставку», «Заново».</div>
-          </div>
+        <div class="hw-step">
+          <div class="hw-n">4</div>
+          <h4>Заявка у вас</h4>
+          <p>Карточка появляется в группе. Вы ведёте заказ кнопками до передачи.</p>
         </div>
       </div>
     </div>
@@ -435,16 +419,117 @@
 
   <hr class="div">
 
-  <!-- ADMIN -->
-  <section id="admin">
+  <!-- OFFERS -->
+  <section id="offers">
     <div class="wrap">
-      <span class="lbl">Панель администратора</span>
-      <h2>Управление через группу</h2>
-      <p class="intro">Каждый заказ — отдельный топик в Telegram-группе. При поступлении заявки создаётся тред с карточкой заказа и кнопками управления.</p>
+      <span class="lbl">Что предлагаем</span>
+      <h2>Выберите свой вариант</h2>
+      <p class="sub">Три пути — в зависимости от того, что вам нужно прямо сейчас.</p>
 
-      <div class="two" style="margin-top:36px;">
+      <div class="offers-grid">
+
+        <!-- 1 -->
+        <div class="offer">
+          <div class="offer-icon">🤖</div>
+          <h3>Готовый бот для печати на дереве</h3>
+          <p class="offer-desc">StrigaPrint Bot — уже написан, настроен и работает. Если у вас мастерская фотокартин, берёте и запускаете.</p>
+          <ul class="offer-list">
+            <li>8 форматов, прайс из базы</li>
+            <li>Приём фото, расчёт стоимости</li>
+            <li>Кнопки управления для вас</li>
+            <li>Двусторонний чат с клиентом</li>
+            <li>Настройка и деплой включены</li>
+          </ul>
+          <a href="https://t.me/YOUR_USERNAME" class="offer-btn outline">Узнать стоимость →</a>
+        </div>
+
+        <!-- 2 FEATURED -->
+        <div class="offer featured">
+          <div class="offer-badge">Популярное</div>
+          <div class="offer-icon">🛠</div>
+          <h3>Бот под ваш бизнес</h3>
+          <p class="offer-desc">Разработаем бот с нуля под ваши товары, услуги и процессы. Любая ниша — доставка, запись, аренда, услуги.</p>
+          <ul class="offer-list">
+            <li>Опрос под вашу специфику</li>
+            <li>Ваши цены и логика расчёта</li>
+            <li>Интеграция с вашей базой</li>
+            <li>Панель управления заказами</li>
+            <li>Поддержка после запуска</li>
+          </ul>
+          <a href="https://t.me/YOUR_USERNAME" class="offer-btn primary">Обсудить проект →</a>
+        </div>
+
+        <!-- 3 -->
+        <div class="offer">
+          <div class="offer-icon">📚</div>
+          <h3>Закрытое сообщество</h3>
+          <p class="offer-desc">Хотите сами научиться делать таких ботов? Закрытый клуб: разборы, уроки, поддержка и живые проекты.</p>
+          <ul class="offer-list">
+            <li>Python + aiogram с нуля</li>
+            <li>Реальные проекты, не учебные</li>
+            <li>Разборы кода в прямом эфире</li>
+            <li>Закрытый чат участников</li>
+            <li>Доступ к исходникам ботов</li>
+          </ul>
+          <a href="https://t.me/YOUR_USERNAME" class="offer-btn outline">Узнать про вступление →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="div">
+
+  <!-- DEMO -->
+  <section id="demo">
+    <div class="wrap">
+      <span class="lbl">Подробнее</span>
+      <h2>Что происходит после заявки</h2>
+      <p class="sub">Администратор ведёт каждый заказ через отдельный топик в Telegram-группе — без сторонних CRM.</p>
+
+      <div class="demo-grid">
         <div>
-          <h3>Кнопки в топике</h3>
+          <div class="demo-steps">
+            <div class="d-step">
+              <div class="d-n">1</div>
+              <div>
+                <h4>Карточка заказа</h4>
+                <p>Фото, размер, упаковка, доставка, итоговая сумма — всё в одном сообщении.</p>
+              </div>
+            </div>
+            <div class="d-step">
+              <div class="d-n">2</div>
+              <div>
+                <h4>Утверждение и счёт</h4>
+                <p>Нажимаете кнопку — клиент получает подтверждение и реквизиты для оплаты.</p>
+              </div>
+            </div>
+            <div class="d-step">
+              <div class="d-n">3</div>
+              <div>
+                <h4>Чек автоматически</h4>
+                <p>Клиент отправляет чек в боте — он сразу появляется у вас в топике.</p>
+              </div>
+            </div>
+            <div class="d-step">
+              <div class="d-n">4</div>
+              <div>
+                <h4>Прямой чат</h4>
+                <p>Когда заказ готов — открывается переписка без посторонних сообщений.</p>
+              </div>
+            </div>
+            <div class="d-step">
+              <div class="d-n">5</div>
+              <div>
+                <h4>Закрытие заказа</h4>
+                <p>Нажали «Передан» — топик помечается ✅. Видно сразу что закрыто, что в работе.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-panel">
+          <h4>Кнопки управления заказом</h4>
           <div class="tg-kb">
             <div class="tg-btn action">1️⃣ Утвердить</div>
             <div class="tg-btn action">2️⃣ Выставить счёт</div>
@@ -454,44 +539,7 @@
             <div class="tg-btn">✏️ Уточнение</div>
             <div class="tg-btn danger">❌ Отменить</div>
           </div>
-        </div>
-        <div>
-          <h3>Цепочка статусов</h3>
-          <div class="sf">
-            <div class="sf-node">
-              <span class="sf-em">🆕</span>
-              <span class="sf-lbl">Новая</span>
-            </div>
-            <span class="sf-arr">→</span>
-            <div class="sf-node y">
-              <span class="sf-em">✅</span>
-              <span class="sf-lbl">Утверждена</span>
-            </div>
-            <span class="sf-arr">→</span>
-            <div class="sf-node y">
-              <span class="sf-em">💳</span>
-              <span class="sf-lbl">Счёт</span>
-            </div>
-            <span class="sf-arr">→</span>
-            <div class="sf-node y">
-              <span class="sf-em">💰</span>
-              <span class="sf-lbl">Оплачена</span>
-            </div>
-            <span class="sf-arr">→</span>
-            <div class="sf-node y">
-              <span class="sf-em">🎁</span>
-              <span class="sf-lbl">Готова</span>
-            </div>
-            <span class="sf-arr">→</span>
-            <div class="sf-node g">
-              <span class="sf-em">📦</span>
-              <span class="sf-lbl">Передана</span>
-            </div>
-          </div>
-          <p style="font-size:13px; color:var(--tx2); margin-top:16px; line-height:1.6;">
-            После статуса «Готова» открывается двусторонний чат: администратор пишет в топик → клиент получает в боте, и наоборот.<br><br>
-            После «Передан» иконка топика меняется на ✅ — визуальный индикатор завершённого заказа.
-          </p>
+          <p class="panel-note">Все кнопки прямо в Telegram. Телефон всегда с вами — значит управление заказами тоже.</p>
         </div>
       </div>
     </div>
@@ -499,42 +547,27 @@
 
   <hr class="div">
 
-  <!-- FEATURES -->
-  <section id="features">
+  <!-- STATS -->
+  <section id="stats">
     <div class="wrap">
-      <span class="lbl">Ключевые возможности</span>
-      <h2>Что умеет бот</h2>
-
-      <div class="feat-grid">
-        <div class="feat">
-          <span class="feat-ic">💬</span>
-          <h4>Двусторонний чат</h4>
-          <p>После кнопки «Готово» открывается прямая переписка. Клиент пишет в бот — сообщение появляется в топике. Администратор отвечает из топика — приходит клиенту.</p>
+      <span class="lbl">В цифрах</span>
+      <h2>Что получает бизнес</h2>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-n">0</div>
+          <div class="stat-l">заявок потеряно с запуска</div>
         </div>
-        <div class="feat">
-          <span class="feat-ic">💰</span>
-          <h4>Управление ценами без деплоя</h4>
-          <p>Прайс хранится в PostgreSQL и меняется командами прямо в Telegram. Изменения мгновенно отражаются в приветственном сообщении для новых клиентов.</p>
+        <div class="stat">
+          <div class="stat-n">~2 мин</div>
+          <div class="stat-l">клиент оформляет заказ</div>
         </div>
-        <div class="feat">
-          <span class="feat-ic">🧾</span>
-          <h4>Снимок цены на момент заказа</h4>
-          <p>Каждый заказ сохраняет полный snapshot цен: базовая, крафт, упаковка, почта, дизайн. Изменение прайса не влияет на уже созданные заказы.</p>
+        <div class="stat">
+          <div class="stat-n">~40с</div>
+          <div class="stat-l">деплой новой версии</div>
         </div>
-        <div class="feat">
-          <span class="feat-ic">🔒</span>
-          <h4>Защита от дублей</h4>
-          <p>Пока у клиента есть активный заказ, кнопка /start неактивна. Новый заказ можно оформить только после завершения или отмены текущего.</p>
-        </div>
-        <div class="feat">
-          <span class="feat-ic">📋</span>
-          <h4>История событий</h4>
-          <p>Каждое действие пишется в таблицу order_events: кто, что и когда сделал. Полная цепочка от создания заказа до передачи клиенту.</p>
-        </div>
-        <div class="feat">
-          <span class="feat-ic">🚀</span>
-          <h4>Мгновенный деплой</h4>
-          <p>git push → автоматический Docker build → бот перезапущен на хостинге. Весь цикл занимает около 40 секунд.</p>
+        <div class="stat">
+          <div class="stat-n">24/7</div>
+          <div class="stat-l">приём заявок без вас</div>
         </div>
       </div>
     </div>
@@ -542,51 +575,31 @@
 
   <hr class="div">
 
-  <!-- TECH -->
-  <section id="tech">
+  <!-- FAQ -->
+  <section id="faq">
     <div class="wrap">
-      <span class="lbl">Технологии</span>
-      <h2>Стек</h2>
-
-      <div class="tech">
-        <div class="tech-pill"><span class="dot" style="background:#3776ab"></span>Python 3.11</div>
-        <div class="tech-pill"><span class="dot" style="background:#2cabee"></span>aiogram 3</div>
-        <div class="tech-pill"><span class="dot" style="background:#336791"></span>PostgreSQL</div>
-        <div class="tech-pill"><span class="dot" style="background:#00e699"></span>Neon Cloud</div>
-        <div class="tech-pill"><span class="dot" style="background:#0db7ed"></span>Docker</div>
-        <div class="tech-pill"><span class="dot" style="background:#f7931e"></span>asyncpg</div>
-        <div class="tech-pill"><span class="dot" style="background:#c89638"></span>aiohttp</div>
-        <div class="tech-pill"><span class="dot" style="background:#f05032"></span>GitHub</div>
-        <div class="tech-pill"><span class="dot" style="background:#888"></span>JustRunMy.App</div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="div">
-
-  <!-- DATABASE -->
-  <section id="database">
-    <div class="wrap">
-      <span class="lbl">База данных</span>
-      <h2>4 таблицы в PostgreSQL</h2>
-      <p class="intro">Нeon Cloud — бессерверный PostgreSQL. Данные переживают перезапуск контейнера, масштабирование и деплои.</p>
-
-      <div class="db-grid">
-        <div class="db-card">
-          <h4>orders</h4>
-          <p>Заказы с полным снимком цены на момент оформления. Хранит статус, topic_id, фото, адрес доставки, дату и признак получения чека.</p>
+      <span class="lbl">Вопросы</span>
+      <h2>Часто спрашивают</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q">Сколько времени занимает разработка бота под заказ? <span class="arr">+</span></div>
+          <div class="faq-a">Зависит от сложности. Стандартный бот для приёма заказов — от 2 до 4 недель. Сначала обсуждаем логику, потом разрабатываем поэтапно с промежуточными версиями для тестирования.</div>
         </div>
-        <div class="db-card">
-          <h4>price_items</h4>
-          <p>Актуальный прайс — 8 размеров. Для каждого хранится базовая цена, крафт, упаковка для пересылки и ЕвроПочта.</p>
+        <div class="faq-item">
+          <div class="faq-q">Нужен ли мне сервер для работы бота? <span class="arr">+</span></div>
+          <div class="faq-a">Нет. Бот работает в Docker-контейнере на хостинге JustRunMy.App — это входит в стоимость или настраивается отдельно. Никаких серверов и VPS настраивать не нужно.</div>
         </div>
-        <div class="db-card">
-          <h4>settings</h4>
-          <p>Глобальные настройки: валюта (BYN) и цена дополнительного дизайна. Меняются без перезапуска бота.</p>
+        <div class="faq-item">
+          <div class="faq-q">Могу ли я сам менять цены после запуска? <span class="arr">+</span></div>
+          <div class="faq-a">Да. Прайс меняется командами прямо в Telegram — без кода и без деплоя. Написали /setprice — цены обновились у всех клиентов сразу.</div>
         </div>
-        <div class="db-card">
-          <h4>order_events</h4>
-          <p>Лог каждого действия по заказу: тип события, actor_id и заметка. Полная хронология от создания до закрытия.</p>
+        <div class="faq-item">
+          <div class="faq-q">Что входит в закрытое сообщество? <span class="arr">+</span></div>
+          <div class="faq-a">Разборы реальных проектов, уроки по Python и aiogram, закрытый чат участников, доступ к исходникам готовых ботов и прямые эфиры с разбором кода. Написать в Telegram чтобы узнать актуальные условия.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Подойдёт ли бот для моей ниши? <span class="arr">+</span></div>
+          <div class="faq-a">Скорее всего да. Если в вашем бизнесе есть приём заявок, запись клиентов или продажа товаров/услуг — бот это автоматизирует. Напишите в Telegram и разберём вашу ситуацию.</div>
         </div>
       </div>
     </div>
@@ -594,42 +607,30 @@
 
   <hr class="div">
 
-  <!-- DEPLOY -->
-  <section id="deploy">
+  <!-- CTA -->
+  <section id="cta">
     <div class="wrap">
-      <span class="lbl">Деплой</span>
-      <h2>Запуск за 40 секунд</h2>
-      <p class="intro">Бот работает в Docker-контейнере на JustRunMy.App. Переменные окружения задаются в панели хостинга — в git не попадают никогда.</p>
-
-      <div class="code"><span class="cm"># Обычный push на GitHub</span>
-<span class="ck">git push</span> origin main
-
-<span class="cm"># Деплой на JustRunMy.App одной командой</span>
-<span class="ck">git push</span> <span class="cv">https://user:token@justrunmy.app/git/r_Ks2t4HM</span> HEAD:<span class="cs">deploy</span>
-
-<span class="cm"># JustRunMy.App: Docker build → контейнер перезапущен → бот работает</span></div>
-
-      <div style="margin-top:24px;">
-        <p style="font-size:13px; color:var(--tx2); margin-bottom:12px;">Переменные окружения:</p>
-        <div class="badges">
-          <span class="badge">BOT_TOKEN</span>
-          <span class="badge">DATABASE_URL</span>
-          <span class="badge">ADMIN_IDS</span>
-          <span class="badge">ADMIN_GROUP_ID</span>
-          <span class="badge">PAYMENT_DETAILS</span>
-          <span class="badge">WELCOME_VIDEO</span>
-          <span class="badge">PRICE_TABLE_PHOTO</span>
-          <span class="badge">PRICE_DESIGN</span>
-          <span class="badge">CURRENCY</span>
-        </div>
+      <h2>Готовы автоматизировать приём заказов?</h2>
+      <p>Напишите в Telegram — обсудим ваш проект и подберём подходящий вариант.</p>
+      <div class="btns">
+        <a href="https://t.me/YOUR_USERNAME" class="btn-primary">Написать в Telegram →</a>
       </div>
     </div>
   </section>
 
   <footer>
-    <p><strong>🌿 StrigaPrint Bot</strong></p>
-    <p style="margin-top:6px;">Python · aiogram 3 · PostgreSQL · Docker</p>
+    <p><strong>🌿 StrigaPrint</strong></p>
+    <p>Telegram-боты для бизнеса · Разработка под ключ · Обучение</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('open');
+      });
+    });
+  </script>
 
 </body>
 </html>
