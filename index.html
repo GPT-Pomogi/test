@@ -83,6 +83,32 @@
     /* everything above bg */
     nav, section, .split-div, footer { position: relative; z-index: 1; }
 
+    /* ── SECTION NAV BUTTON ── */
+    .section-nav-btn {
+      position: absolute;
+      right: -22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(11,15,23,0.95);
+      border: 1px solid rgba(34,211,238,0.35);
+      color: var(--cyan);
+      display: grid; place-items: center;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 0 18px rgba(34,211,238,0.14);
+      z-index: 10;
+    }
+    .section-nav-btn:hover {
+      background: rgba(34,211,238,0.12);
+      border-color: var(--cyan);
+      box-shadow: 0 0 28px rgba(34,211,238,0.30);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .section-nav-btn svg { width: 18px; height: 18px; transition: transform .2s; }
+    .section-nav-btn:hover svg { transform: translateY(2px); }
+
     /* content blocks with rounded bg on top of dots */
     section .wrap {
       background: rgba(11,15,23,0.90);
@@ -90,6 +116,7 @@
       border-radius: 16px;
       padding: 48px;
       backdrop-filter: blur(4px);
+      position: relative;
     }
     footer .wrap {
       background: rgba(11,15,23,0.90);
@@ -830,6 +857,28 @@
   <script>
     document.querySelectorAll('.faq-q').forEach(q => {
       q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+    });
+
+    // Section nav buttons
+    const order = ['#hero','#pain','#how','#demo','#stats','#offers','#faq','#cta'];
+    const arrowSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+    order.forEach((id, i) => {
+      if (i === order.length - 1) return;
+      const section = document.querySelector(id);
+      if (!section) return;
+      const wrap = section.querySelector('.wrap');
+      if (!wrap) return;
+
+      const btn = document.createElement('button');
+      btn.className = 'section-nav-btn';
+      btn.innerHTML = arrowSvg;
+      btn.setAttribute('aria-label', 'Следующий блок');
+      btn.addEventListener('click', () => {
+        const next = document.querySelector(order[i + 1]);
+        if (next) next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+      wrap.appendChild(btn);
     });
   </script>
 
